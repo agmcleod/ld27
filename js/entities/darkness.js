@@ -13,12 +13,36 @@ game.Darkness = me.ObjectEntity.extend({
     this.type = type;
     if(type == 'light') this.z = 199;
     this.alwaysUpdate = true;
+    this.offsetX = null;
+    this.offsetY = null;
   },
 
   update: function() {
+    if(game.player.vel.x != 0) {
+      if(game.player.vel.x < 0) {
+        this.offsetX = -10;
+      }
+      else {
+        this.offsetX = 10;
+      }
+    }
+    else {
+      this.offsetX = 0;
+    }
+    if(game.player.vel.y != 0) {
+      if(game.player.vel.y < 0) {
+        this.offsetY = -10;
+      }
+      else {
+        this.offsetY = 10;
+      }
+    }
+    else {
+      this.offsetY = 0;
+    }
     if(this.type == 'dark') {
-      this.pos.x = me.game.viewport.pos.x;
-      this.pos.y = me.game.viewport.pos.y;
+      this.pos.x = me.game.viewport.pos.x + this.offsetX;
+      this.pos.y = me.game.viewport.pos.y + this.offsetY;
     }
     else {
       this.pos.x = game.player.pos.x - this.width / 2 + 32;

@@ -11,7 +11,7 @@ game.DarknessController = Object.extend({
     this.flashedTime = me.timer.getTime()-10000;
     this.halfPosition = new me.Vector2d(me.game.viewport.width / 2, me.game.viewport.height / 2);
     this.padding = new me.Vector2d(0,0);
-
+    this.z = 1;
     me.game.world.addChild(this.dark);
     //me.game.world.addChild(this.light);
     //me.game.world.addChild(this.fillers.vertical);
@@ -32,6 +32,11 @@ game.DarknessController = Object.extend({
       this.dark.renderable.alpha = diff / 5000;
       if(diff >= 10000) {
         this.flashed = false;
+        game.clock.renderable.setCurrentAnimation(0);
+      }
+      else {
+        var frame = Math.floor(diff / 1000);
+        game.clock.renderable.setCurrentAnimation('' + frame);
       }
     }
 

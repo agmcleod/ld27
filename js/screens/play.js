@@ -18,6 +18,8 @@ game.PlayScreen = me.ScreenObject.extend({
     this.darknessController = new game.DarknessController();
     game.player = me.game.world.getEntityByProp('name', 'player')[0];
     me.game.world.addChild(this.darknessController);
+    game.clock = new game.Clock();
+    me.game.world.addChild(game.clock);
   },
   
   onDestroyEvent: function() {
