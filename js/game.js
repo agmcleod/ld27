@@ -24,6 +24,8 @@ var game = {
     me.state.set(me.state.PLAY, new game.PlayScreen());
     me.sys.gravity = 0;
     me.entityPool.add("player", game.Player);
+    me.entityPool.add("door", game.Door);
+
     me.state.change(me.state.PLAY);
   }
 };

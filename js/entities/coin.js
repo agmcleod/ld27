@@ -7,7 +7,7 @@ game.Coin = me.CollectableEntity.extend({
     }
     this.parent(x, y, settings);
     this.z = 10;
-    this.renderable.addAnimation('bounce',[0,1,2,3,4,3,2,1], 4);
+    this.renderable.addAnimation('bounce', [0,1,2,3,4,3,2,1], 4);
     this.renderable.setAnimationFrame(Math.floor(Math.random() * 7));
   },
 

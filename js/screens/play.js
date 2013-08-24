@@ -1,4 +1,5 @@
 game.PlayScreen = me.ScreenObject.extend({
+  font: new me.Font('Arial', 32, 'white', 'left'),
   init: function() {
     this.parent(true);
   },
@@ -46,6 +47,7 @@ game.PlayScreen = me.ScreenObject.extend({
     for(var i = 0; i < 50; i++) {
       this.spawnCoin(i);
     }
+    me.game.world.addChild(new game.Fontbox(this.font));
   },
 
   spawnCoin: function(i) {
