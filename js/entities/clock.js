@@ -18,13 +18,7 @@ game.Clock = me.ObjectEntity.extend({
     this.renderable.addAnimation('8', [8], 1);
     this.renderable.addAnimation('9', [9], 1);
     this.renderable.setCurrentAnimation('0');
+    this.floating = true;
     this.z = 500;
-  },
-
-  update: function() {
-    this.parent();
-    this.pos.x = this.x + me.game.viewport.pos.x;
-    this.pos.y = this.y + me.game.viewport.pos.y;
-    return true;
   }
 });
