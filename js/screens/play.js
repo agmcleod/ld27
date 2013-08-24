@@ -17,8 +17,8 @@ game.PlayScreen = me.ScreenObject.extend({
     me.input.bindKey(me.input.KEY.ENTER, 'flash', true);
     this.darknessController = new game.DarknessController();
     game.player = me.game.world.getEntityByProp('name', 'player')[0];
+    me.game.world.addChild(this.darknessController);
   },
-  
   
   onDestroyEvent: function() {
     me.input.unbindKey(me.input.KEY.W);
@@ -35,6 +35,6 @@ game.PlayScreen = me.ScreenObject.extend({
 
   update: function() {
     this.parent();
-    this.darknessController.update();
+    //this.darknessController.update();
   }
 });
