@@ -12,7 +12,6 @@ game.PlayScreen = me.ScreenObject.extend({
 
     game.clock = new game.Clock();
     me.game.world.addChild(game.clock);
-
     this.setupCoins();
   },
   
@@ -43,34 +42,28 @@ game.PlayScreen = me.ScreenObject.extend({
   },
 
   setupCoins: function() {
-    this.cols = me.game.currentLevel.width / 64;
-    this.rows = me.game.currentLevel.height / 64;
-
-    this.spawnX = Array(this.cols-1);
-    for(var i = 1; i < this.cols; i++) {
-      this.spawnX[i] = i * 64;
-    }
-    
-    this.spawnY = Array(this.rows-1);
-    for(var i = 1; i < this.rows; i++) {
-      this.spawnY[i] = i * 64;
-    }
-    
-    game.coins = Array(50);
+    game.coins = [];
     for(var i = 0; i < 50; i++) {
       this.spawnCoin(i);
     }
   },
 
   spawnCoin: function(i) {
-    var xIndex = Math.floor(Math.random() * this.spawnX.length) + 1;
-    var yIndex = Math.floor(Math.random() * this.spawnY.length) + 1;
-    var x = this.spawnX[xIndex];
-    var y = this.spawnX[yIndex];
-    var coin = new game.Coin(x, y);
+    var collisionData = me.game.currentLevel.getLayerByName('collision').layerData;
+    var rows = me.game.currentLevel.rows;
+    var cols = me.game.currentLevel.cols;
+    var r, c;
+
+    while(r == null || c == null) {
+      r = Math.floor(Math.random() * rows);
+      c = Math.floor(Math.random() * cols);
+      if(collisionData[c][r] !== null) {
+        r = null;
+        c = null;
+      }
+    }
+    var coin = new game.Coin(c * 32, r * 32);
     me.game.world.addChild(coin);
     game.coins[i] = coin;
-    this.spawnX.splice(xIndex, 1);
-    this.spawnY.splice(yIndex, 1);
   }
 });
