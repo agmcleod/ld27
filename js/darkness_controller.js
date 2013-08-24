@@ -6,16 +6,16 @@ game.DarknessController = Object.extend({
     this.fillers = { vertical: new game.Space(), horizontal: new game.Space()};
     this.fillers.vertical.height = me.game.viewport.height;
     this.fillers.horizontal.width = me.game.viewport.width;
-    this.light = new game.Darkness(0, 0, 'light');
+    //this.light = new game.Darkness(0, 0, 'light');
     this.flashed = false;
     this.flashedTime = me.timer.getTime()-10000;
     this.halfPosition = new me.Vector2d(me.game.viewport.width / 2, me.game.viewport.height / 2);
     this.padding = new me.Vector2d(0,0);
 
     me.game.world.addChild(this.dark);
-    me.game.world.addChild(this.light);
-    me.game.world.addChild(this.fillers.vertical);
-    me.game.world.addChild(this.fillers.horizontal);
+    //me.game.world.addChild(this.light);
+    //me.game.world.addChild(this.fillers.vertical);
+    //me.game.world.addChild(this.fillers.horizontal);
   },
   
   update: function() {
@@ -35,19 +35,22 @@ game.DarknessController = Object.extend({
       }
     }
 
+
+
     // update x
-    if(me.game.viewport.pos.x > me.game.viewport.width) {
+    /* if(me.game.viewport.pos.x > me.game.viewport.width) {
       this.padding.x = (game.player.pos.x - me.game.viewport.pos.x) - this.halfPosition.x;
     }
     else {
       this.padding.x = game.player.pos.x - this.halfPosition.x;
     }
     if(this.padding.x < 0) {
-      this.fillers.vertical.pos.x = me.game.viewport.width + this.padding.x;
+      this.fillers.vertical.pos.x = me.game.viewport.width + this.padding.x + me.game.viewport.pos.x;
     }
     else {
-      this.fillers.vertical.pos.x = 0;
+      this.fillers.vertical.pos.x = me.game.viewport.pos.x;
     }
+    this.fillers.vertical.pos.y = me.game.viewport.pos.y;
     this.fillers.vertical.width = Math.abs(this.padding.x);
     
     // update y
@@ -59,11 +62,12 @@ game.DarknessController = Object.extend({
     }
     
     if(this.padding.y < 0) {
-      this.fillers.horizontal.pos.y = me.game.viewport.height + this.padding.y;
+      this.fillers.horizontal.pos.y = me.game.viewport.height + this.padding.y + me.game.viewport.pos.y;
     }
     else {
-      this.fillers.horizontal.pos.y = 0;
+      this.fillers.horizontal.pos.y = me.game.viewport.pos.y;
     }
-    this.fillers.horizontal.height = Math.abs(this.padding.y);
+    this.fillers.horizontal.pos.x = me.game.viewport.pos.x;
+    this.fillers.horizontal.height = Math.abs(this.padding.y); */
   }
 });
