@@ -29,7 +29,7 @@ game.DarknessController = Object.extend({
     
     if(this.flashed) {
       var diff = (me.timer.getTime() - this.flashedTime);
-      this.dark.renderable.alpha = diff / 5000;
+      this.dark.renderable.alpha = diff / 7000;
       if(diff >= 10000) {
         this.flashed = false;
         game.clock.renderable.setCurrentAnimation(0);
