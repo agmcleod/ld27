@@ -11,6 +11,7 @@ game.resources = [
   { name: 'darkness', type: 'image', src: 'data/img/darkness.png' },
   { name: 'door', type: 'image', src: 'data/img/door.png' },
   { name: 'player', type: 'image', src: 'data/img/simplecharacter.png' },
+  { name: 'trap', type: 'image', src: 'data/img/trap.png' },
   
   { name: 'coin', type: 'audio', src: 'data/sfx/' }
 ];

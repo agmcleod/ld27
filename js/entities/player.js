@@ -4,6 +4,7 @@ game.Player = me.ObjectEntity.extend({
     this.setVelocity(10, 10);
     me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
     this.z = 100;
+    this.type = 'player';
   },
 
   dontGoOutOfMap: function() {
@@ -41,8 +42,8 @@ game.Player = me.ObjectEntity.extend({
     else {
       this.vel.x = 0;
     }
-    me.game.world.collide(this);
     this.updateMovement();
+    me.game.world.collide(this);
     this.dontGoOutOfMap();
     this.parent();
     
