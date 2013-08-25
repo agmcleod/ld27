@@ -23,6 +23,7 @@ game.Trap = me.ObjectEntity.extend({
         grunt = 'grunt2';
       }
       game.playScreen.dropCoins();
+      game.player.renderable.flicker(10);
       me.audio.play(grunt);
       var spike = new game.Spikes(this.pos.x, this.pos.y, this);
       var blood = new game.Blood(this.pos.x, this.pos.y);

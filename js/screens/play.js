@@ -119,18 +119,19 @@
       var collisionData = me.game.currentLevel.getLayerByName('collision').layerData;
       var rows = me.game.currentLevel.rows-5;
       var cols = me.game.currentLevel.cols-5;
-      var r = null, c = null;
-      while(r === null || c === null) {
-        r = Math.floor(Math.random() * rows) + 4;
-        c = Math.floor(Math.random() * cols) + 4;
-        if(collisionData[c][r] !== null) {
-          r = null;
-          c = null;
+      for(var i = 0; i < 20; i++) {
+        var r = null, c = null;
+        while(r === null || c === null) {
+          r = Math.floor(Math.random() * rows) + 4;
+          c = Math.floor(Math.random() * cols) + 4;
+          if(collisionData[c][r] !== null || (typeof this.traps[c] !== 'undefined' && typeof this.traps[c][r] !== 'undefined')) {
+            r = null;
+            c = null;
+          }
         }
+        this.traps[c] ? this.traps[c].push(r) : this.traps[c] = [r];
+        me.game.world.addChild(new game.Trap(c * 32, r * 32));
       }
-      //this.traps[c] ? this.traps[c].push(r) : this.traps[c] = [r];
-      this.traps[6] = [6];
-      me.game.world.addChild(new game.Trap(6 * 32, 6 * 32));
     }
   });
 

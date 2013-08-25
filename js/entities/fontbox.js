@@ -13,8 +13,11 @@ game.Fontbox = me.Rect.extend({
     if(game.intro) {
       this.font.draw(context, 'Give the tab or enter key a try.', this.pos.x, this.pos.y);
     }
-    else if(amount < 10) {
+    else if(amount > 0 && amount < 10) {
       this.font.draw(context, amount + ' left', this.pos.x, this.pos.y);
+    }
+    else if(amount == 0) {
+      this.font.draw(context, 'Pay the exit', this.pos.x, this.pos.y);
     }
   },
 
