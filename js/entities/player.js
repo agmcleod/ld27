@@ -41,7 +41,7 @@ game.Player = me.ObjectEntity.extend({
     else {
       this.vel.x = 0;
     }
-    me.game.collide(this);
+    me.game.world.collide(this);
     this.updateMovement();
     this.dontGoOutOfMap();
     this.parent();

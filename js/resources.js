@@ -1,5 +1,6 @@
 game.resources = [
   { name: 'level', type: 'tmx', src: 'data/map/level.tmx' },
+  { name: 'end', type: 'tmx', src: 'data/map/end.tmx' },
   
   { name: 'metatiles32x32', type: 'image', src: 'data/img/metatiles32x32.png' },
   { name: 'simplebg', type: 'image', src: 'data/img/simplebg.png' },

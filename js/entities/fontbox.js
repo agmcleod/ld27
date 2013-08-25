@@ -10,7 +10,10 @@ game.Fontbox = me.Rect.extend({
   },
   draw: function(context) {
     var amount = game.coins.length;
-    if(amount < 10) {
+    if(game.intro) {
+      this.font.draw(context, 'Give the shift or enter key a try.', this.pos.x, this.pos.y);
+    }
+    else if(amount < 10) {
       this.font.draw(context, amount + ' left', this.pos.x, this.pos.y);
     }
   },

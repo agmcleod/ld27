@@ -20,6 +20,7 @@ game.DarknessController = Object.extend({
         this.dark.renderable.alpha = 0;
         this.flashed = true;
         this.flashedTime = me.timer.getTime();
+        game.intro = false;
       }
     }
     
