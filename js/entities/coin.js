@@ -12,18 +12,22 @@ game.Coin = me.CollectableEntity.extend({
     this.renderable.setAnimationFrame(Math.floor(Math.random() * 7));
     this.target = new me.Vector2d(x,y);
     this.originalPos = new me.Vector2d(x, y);
+    this.canBePickedUp = true;
   },
 
   onCollision: function(res, obj) {
-    if(obj.type === 'player') {
+    if(this.canBePickedUp && obj.type === 'player') {
       this.collidable = false;
+      this.canBePickedUp = false;
       me.audio.play('coin');
       this.visible = false;
       game.playScreen.removeCoin();
     }
-    else if(obj.type !== 'trap') {
-      this.collidable = true;
-    }
+    /* else if(obj.type !== 'trap') {
+      this.canBePickedUp = true;
+      this.target.x = this.pos.x;
+      this.target.y = this.pos.y;
+    } */
   },
 
   setTrajectory: function() {
@@ -34,16 +38,22 @@ game.Coin = me.CollectableEntity.extend({
     this.originalPos.x = this.pos.x;
     this.originalPos.y = this.pos.y;
     this.visible = true;
+    this.collidable = true;
   },
 
   update: function() {
     this.parent();
-    if(!this.collidable && this.visible) {
+    if(!this.canBePickedUp && this.visible) {
       this.vel.x = Math.cos(this.targetAngle) * this.accel.x * me.timer.tick;
       this.vel.y = Math.sin(this.targetAngle) * this.accel.y * me.timer.tick;
-      this.updateMovement();
+      var v = this.updateMovement();
+      if(v.x || v.y) {
+        this.canBePickedUp = true;
+        this.target.x = this.pos.x;
+        this.target.y = this.pos.y;
+      }
       if(Math.abs(this.pos.x - this.originalPos.x) > this.distance || Math.abs(this.pos.y - this.originalPos.y) > this.distance) {
-        this.collidable = true;
+        this.canBePickedUp = true;
       }
     }
     return true;
