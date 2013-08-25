@@ -17,6 +17,9 @@ game.Fontbox = me.Rect.extend({
     else if(game.playScreen.gameOver) {
       this.font.draw(context, 'You won in '+ game.playScreen.getRuntime() +' seconds. Press enter to play again.', this.pos.x, this.pos.y);
     }
+    else if(amount === game.playScreen.getMaxCoins()) {
+      this.font.draw(context, 'Try collecting some coins around.', this.pos.x, this.pos.y);
+    }
     else if(amount > 0 && amount < 5) {
       this.font.draw(context, amount + ' left', this.pos.x, this.pos.y);
     }

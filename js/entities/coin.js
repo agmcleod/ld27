@@ -40,8 +40,9 @@ game.Coin = me.CollectableEntity.extend({
     this.parent();
     var res = this.collide();
     if(res && res.obj.type === 'trap') {
-      this.pos.x = res.obj.pos.x - this.width;
-      this.pos.y = res.obj.pos.y - this.height;
+      var pos = game.playScreen.getRandomCoinPosition();
+      this.pos.x = pos.c * 32;
+      this.pos.y = pos.r * 32;
     }
     if(!this.canBePickedUp && this.visible) {
       this.vel.x = Math.cos(this.targetAngle) * this.accel.x * me.timer.tick;

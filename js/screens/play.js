@@ -20,7 +20,7 @@
   }
 
   game.PlayScreen = me.ScreenObject.extend({
-    font: new me.Font('Arial', 32, 'white', 'left'),
+    font: new me.Font('Arial', 32, '#0c0', 'left'),
     init: function() {
       this.parent(true, true);
     },
@@ -50,6 +50,27 @@
         me.levelDirector.loadLevel('end');
         me.game.world.addChild(new game.Fontbox(game.playScreen.font, 50, 500));
       }).defer(this);
+    },
+
+    getMaxCoins: function() {
+      return maxCoins;
+    },
+
+    getRandomCoinPosition: function() {
+      var r = null, c = null;
+      var collisionData = me.game.currentLevel.getLayerByName('collision').layerData;
+      var rows = me.game.currentLevel.rows - 5;
+      var cols = me.game.currentLevel.cols - 5;
+      while(r === null || c === null) {
+        r = Math.floor(Math.random() * rows) + 4;
+        c = Math.floor(Math.random() * cols) + 4;
+        if(collisionData[c][r] !== null || (isNotNull(this.traps[c]) && isNotNull(this.traps[c][r]))) {
+          r = null;
+          c = null;
+        }
+      }
+      console.log(r);
+      return {r:r,c:c};
     },
 
     getRuntime: function() {
@@ -134,20 +155,8 @@
     },
 
     spawnCoin: function(i) {
-      var collisionData = me.game.currentLevel.getLayerByName('collision').layerData;
-      var rows = me.game.currentLevel.rows-5;
-      var cols = me.game.currentLevel.cols-5;
-      var r = null, c = null;
-
-      while(r === null || c === null) {
-        r = Math.floor(Math.random() * rows) + 4;
-        c = Math.floor(Math.random() * cols) + 4;
-        if(collisionData[c][r] !== null || (typeof this.traps[c] !== 'undefined' && typeof this.traps[c][r] !== 'undefined')) {
-          r = null;
-          c = null;
-        }
-      }
-      var coin = new game.Coin(c * 32, r * 32);
+      var pos = this.getRandomCoinPosition();
+      var coin = new game.Coin(pos.c * 32, pos.r * 32);
       me.game.world.addChild(coin);
       coins[i] = coin;
     },
@@ -162,7 +171,7 @@
         while(r === null || c === null) {
           r = Math.floor(Math.random() * rows) + 4;
           c = Math.floor(Math.random() * cols) + 4;
-          if(collisionData[c][r] !== null || (isNotNull(noSpawn[c]) && isNotNull(noSpawn[c][r])) || (isNotNull(this.traps[c]) && isNotNull(this.traps[c][r]))) {
+          if(collisionData[c][r] !== null || (isNotNull(noSpawn[c]) && noSpawn[c].indexOf(r) != -1) || (isNotNull(this.traps[c]) && isNotNull(this.traps[c][r]))) {
             r = null;
             c = null;
           }
