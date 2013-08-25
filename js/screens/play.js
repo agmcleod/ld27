@@ -26,7 +26,7 @@ game.PlayScreen = me.ScreenObject.extend({
     me.input.unbindKey(me.input.KEY.LEFT);
     me.input.unbindKey(me.input.KEY.DOWN);
     me.input.unbindKey(me.input.KEY.RIGHT);
-    me.input.unbindKey(me.input.KEY.SHIFT);
+    me.input.unbindKey(me.input.KEY.TAB);
     me.input.unbindKey(me.input.KEY.ENTER);
   },
 
@@ -39,7 +39,7 @@ game.PlayScreen = me.ScreenObject.extend({
     me.input.bindKey(me.input.KEY.LEFT, 'left');
     me.input.bindKey(me.input.KEY.DOWN, 'down');
     me.input.bindKey(me.input.KEY.RIGHT, 'right');
-    me.input.bindKey(me.input.KEY.SHIFT, 'flash', true);
+    me.input.bindKey(me.input.KEY.TAB, 'flash', true);
     me.input.bindKey(me.input.KEY.ENTER, 'flash', true);
   },
 
@@ -53,13 +53,13 @@ game.PlayScreen = me.ScreenObject.extend({
 
   spawnCoin: function(i) {
     var collisionData = me.game.currentLevel.getLayerByName('collision').layerData;
-    var rows = me.game.currentLevel.rows-3;
-    var cols = me.game.currentLevel.cols-3;
+    var rows = me.game.currentLevel.rows-5;
+    var cols = me.game.currentLevel.cols-5;
     var r = null, c = null;
 
     while(r === null || c === null) {
-      r = Math.floor(Math.random() * rows) + 2;
-      c = Math.floor(Math.random() * cols) + 2;
+      r = Math.floor(Math.random() * rows) + 4;
+      c = Math.floor(Math.random() * cols) + 4;
       if(collisionData[c][r] !== null) {
         r = null;
         c = null;
