@@ -17,11 +17,9 @@ var game = {
     me.state.change(me.state.LOADING);
   },
 
-
-
   loaded : function () {
-    me.state.set(me.state.MENU, new game.TitleScreen());
-    me.state.set(me.state.PLAY, new game.PlayScreen());
+    game.playScreen = new game.PlayScreen();
+    me.state.set(me.state.PLAY, game.playScreen);
     me.sys.gravity = 0;
     me.entityPool.add("player", game.Player);
     me.entityPool.add("door", game.Door);

@@ -3,7 +3,6 @@ game.Player = me.ObjectEntity.extend({
     this.parent(x, y, settings);
     this.setVelocity(10, 10);
     me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
-    this.z = 100;
     this.type = 'player';
   },
 

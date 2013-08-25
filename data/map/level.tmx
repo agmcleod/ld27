@@ -17,6 +17,9 @@
   </data>
  </layer>
  <objectgroup name="entities" width="60" height="40">
+  <properties>
+   <property name="z" value="100"/>
+  </properties>
   <object name="player" x="36" y="65" width="64" height="64">
    <properties>
     <property name="image" value="player"/>

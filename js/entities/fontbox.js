@@ -9,7 +9,7 @@ game.Fontbox = me.Rect.extend({
     this.font = font;
   },
   draw: function(context) {
-    var amount = game.coins.length;
+    var amount = game.playScreen.numberOfCoins();
     if(game.intro) {
       this.font.draw(context, 'Give the tab or enter key a try.', this.pos.x, this.pos.y);
     }

@@ -13,5 +13,7 @@ game.resources = [
   { name: 'player', type: 'image', src: 'data/img/simplecharacter.png' },
   { name: 'trap', type: 'image', src: 'data/img/trap.png' },
   
-  { name: 'coin', type: 'audio', src: 'data/sfx/' }
+  { name: 'coin', type: 'audio', src: 'data/sfx/' },
+  { name: 'grunt', type: 'audio', src: 'data/sfx/' },
+  { name: 'grunt2', type: 'audio', src: 'data/sfx/' }
 ];

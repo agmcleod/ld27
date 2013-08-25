@@ -5,11 +5,12 @@ game.Blood = me.ObjectEntity.extend({
       spritewidth: 32,
       spriteheight: 32
     });
-    this.renderable.addAnimation('splat', [5,5,5,5,10,11,12,13,14], 10);
+    this.renderable.addAnimation('splat', [5,5,5,5,10,11,12,13,14], 30);
     var _this = this;
     this.renderable.setCurrentAnimation('splat', function() {
       me.game.world.removeChild(_this);
+      return false;
     });
-    this.z = 501;
+    this.z = 220;
   }
 });
