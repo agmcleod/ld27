@@ -23,11 +23,6 @@ game.Coin = me.CollectableEntity.extend({
       this.visible = false;
       game.playScreen.removeCoin();
     }
-    /* else if(obj.type !== 'trap') {
-      this.canBePickedUp = true;
-      this.target.x = this.pos.x;
-      this.target.y = this.pos.y;
-    } */
   },
 
   setTrajectory: function() {
@@ -43,6 +38,11 @@ game.Coin = me.CollectableEntity.extend({
 
   update: function() {
     this.parent();
+    var res = this.collide();
+    if(res && res.obj.type === 'trap') {
+      this.pos.x = res.obj.pos.x - this.width;
+      this.pos.y = res.obj.pos.y - this.height;
+    }
     if(!this.canBePickedUp && this.visible) {
       this.vel.x = Math.cos(this.targetAngle) * this.accel.x * me.timer.tick;
       this.vel.y = Math.sin(this.targetAngle) * this.accel.y * me.timer.tick;

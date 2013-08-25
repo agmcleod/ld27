@@ -1,15 +1,32 @@
 (function() {
-  var coinCount = 50;
+  var maxCoins = 20;
+  var coinCount;
+  
   var coins = Array(coinCount);
+  var noSpawn = {
+    5: [29,30,31],
+    6: [29,30,31],
+    7: [29,30,31],
+    8: [29,30,31],
+    43: [31,32,33],
+    44: [31,32,33],
+    45: [31,32,33],
+    46: [31,32,33],
+  };
+  var runtime;
+
+  var isNotNull = function(value) {
+    return typeof value !== 'undefined' && value !== null;
+  }
 
   game.PlayScreen = me.ScreenObject.extend({
     font: new me.Font('Arial', 32, 'white', 'left'),
     init: function() {
-      this.parent(true);
+      this.parent(true, true);
     },
 
     dropCoins: function() {
-      coinCount = 50;
+      coinCount = maxCoins;
       this.eachInactiveCoin(function(coin) {
         coin.pos.x = game.player.pos.x;
         coin.pos.y = game.player.pos.y;
@@ -26,24 +43,28 @@
       }
     },
 
+    endLevel: function() {
+      this.gameOver = true;
+      runtime = (me.timer.getTime() - this.startTime) / 1000;
+      (function() {
+        me.levelDirector.loadLevel('end');
+        me.game.world.addChild(new game.Fontbox(game.playScreen.font, 50, 500));
+      }).defer(this);
+    },
+
+    getRuntime: function() {
+      return runtime;
+    },
+
     hasCoins: function() {
       return this.numberOfCoins() > 0;
     },
 
-    noActiveCoins: function() {
-      var inactiveCount = 0;
-      this.eachInactiveCoin(function() {
-        inactiveCount++;
-      });
-      return inactiveCount === 50;
-    },
-
-    numberOfCoins: function() {
-      return coinCount;
-    },
-
-    onResetEvent: function() {  
+    initializeGame: function() {
+      coinCount = maxCoins;
+      this.gameOver = false;
       me.levelDirector.loadLevel('level');
+      this.startTime = me.timer.getTime();
       this.setupBinds();
       this.darknessController = new game.DarknessController();
       game.player = me.game.world.getEntityByProp('name', 'player')[0];
@@ -53,7 +74,25 @@
       me.game.world.addChild(game.clock);
       this.spawnTraps();
       this.setupCoins();
+      me.game.world.addChild(new game.Fontbox(this.font));
+    },
 
+    noActiveCoins: function() {
+      var inactiveCount = 0;
+      this.eachInactiveCoin(function() {
+        inactiveCount++;
+      });
+      return inactiveCount === maxCoins;
+    },
+
+    numberOfCoins: function() {
+      return coinCount;
+    },
+
+    onResetEvent: function() {
+      var coinCount = maxCoins;
+      var coins = Array(coinCount);
+      this.initializeGame();
       game.intro = true;
     },
     
@@ -89,10 +128,9 @@
     },
 
     setupCoins: function() {
-      for(var i = 0; i < 50; i++) {
+      for(var i = 0; i < maxCoins; i++) {
         this.spawnCoin(i);
       }
-      me.game.world.addChild(new game.Fontbox(this.font));
     },
 
     spawnCoin: function(i) {
@@ -119,12 +157,12 @@
       var collisionData = me.game.currentLevel.getLayerByName('collision').layerData;
       var rows = me.game.currentLevel.rows-5;
       var cols = me.game.currentLevel.cols-5;
-      for(var i = 0; i < 20; i++) {
+      for(var i = 0; i < 17; i++) {
         var r = null, c = null;
         while(r === null || c === null) {
           r = Math.floor(Math.random() * rows) + 4;
           c = Math.floor(Math.random() * cols) + 4;
-          if(collisionData[c][r] !== null || (typeof this.traps[c] !== 'undefined' && typeof this.traps[c][r] !== 'undefined')) {
+          if(collisionData[c][r] !== null || (isNotNull(noSpawn[c]) && isNotNull(noSpawn[c][r])) || (isNotNull(this.traps[c]) && isNotNull(this.traps[c][r]))) {
             r = null;
             c = null;
           }
@@ -132,6 +170,13 @@
         this.traps[c] ? this.traps[c].push(r) : this.traps[c] = [r];
         me.game.world.addChild(new game.Trap(c * 32, r * 32));
       }
+    },
+
+    update: function() {
+      if(this.gameOver && me.input.isKeyPressed('flash')) {
+        this.initializeGame();
+      }
+      return true;
     }
   });
 

@@ -6,8 +6,7 @@ game.Door = me.ObjectEntity.extend({
 
   onCollision: function() {
     if(!game.playScreen.hasCoins() && game.playScreen.noActiveCoins()) {
-      me.entityPool.purge();
-      me.levelDirector.loadLevel.defer('end');
+      game.playScreen.endLevel();
     }
   }
 });
