@@ -69,7 +69,6 @@
           c = null;
         }
       }
-      console.log(r);
       return {r:r,c:c};
     },
 

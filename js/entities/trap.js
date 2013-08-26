@@ -27,8 +27,11 @@ game.Trap = me.ObjectEntity.extend({
       me.audio.play(grunt);
       var spike = new game.Spikes(this.pos.x, this.pos.y, this);
       var blood = new game.Blood(this.pos.x, this.pos.y);
-      (function() { me.game.world.addChild(spike) }).defer(this);
-      (function() { me.game.world.addChild(blood) }).defer(this);
+      (function() {
+        me.game.world.addChild(spike);
+        me.game.world.addChild(blood);
+        me.game.world.sort();
+      }).defer(this);
     }
   }
 });
