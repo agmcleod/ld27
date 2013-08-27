@@ -1,26 +1,24 @@
-game.Darkness = me.ObjectEntity.extend({
-  init: function(x, y, type) {
+game.Darkness = me.Renderable.extend({
+  init: function(x, y) {
     var settings = {
       image: 'darkness',
       spritewidth: 960,
       spriteheight: 640
     };
-    this.parent(x, y, settings);
-    this.renderable.addAnimation('dark', [0], 1);
-    this.renderable.addAnimation('light', [1], 1);
-    this.renderable.setCurrentAnimation(type);
+    this.image = me.loader.getImage(settings.image);
+    this.parent(new me.Vector2d(x, y), settings.spritewidth, settings.spriteheight);
     this.z = 200;
-    this.type = type;
-    if(type == 'light') this.z = 199;
     this.alwaysUpdate = true;
     this.floating = true;
   },
 
+  draw: function(ctx) {
+    ctx.globalAlpha = this.alpha;
+    ctx.drawImage(this.image, 0, 0, this.width, this.height, this.pos.x, this.pos.y, this.width, this.height);
+    ctx.globalAlpha = 1;
+  },
+
   update: function() {
-    if(this.type != 'dark') {
-      this.pos.x = game.player.pos.x - this.width / 2 + 32;
-      this.pos.y = game.player.pos.y - this.height / 2 + 32;
-    }
     return true;
   }
 });

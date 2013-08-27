@@ -17,7 +17,7 @@ game.DarknessController = Object.extend({
   update: function() {
     if(me.input.isKeyPressed('flash')) {
       if(!this.flashed && me.timer.getTime() - this.flashedTime > 10000) {
-        this.dark.renderable.alpha = 0;
+        this.dark.alpha = 0;
         this.flashed = true;
         this.flashedTime = me.timer.getTime();
         game.intro = false;
@@ -26,7 +26,7 @@ game.DarknessController = Object.extend({
     
     if(this.flashed) {
       var diff = (me.timer.getTime() - this.flashedTime);
-      this.dark.renderable.alpha = diff / 9000;
+      this.dark.alpha = diff / 9000;
       if(diff >= 10000) {
         this.flashed = false;
         game.clock.renderable.setCurrentAnimation(0);
