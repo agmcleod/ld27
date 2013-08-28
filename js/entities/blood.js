@@ -13,7 +13,6 @@ game.Blood = me.Renderable.extend({
   },
 
   draw: function(context) {
-    this.parent(context);
     context.translate(this.pos.x, this.pos.y);
     this.renderable.draw(context);
     context.translate(-this.pos.x, -this.pos.y);
