@@ -26,11 +26,11 @@ game.DarknessController = Object.extend({
       this.dark.alpha = diff / 9000;
       if(diff >= 10000) {
         this.flashed = false;
-        game.clock.renderable.setCurrentAnimation(0);
+        game.clock.setCurrentAnimation(0);
       }
       else {
         var frame = Math.floor(diff / 1000);
-        game.clock.renderable.setCurrentAnimation('' + frame);
+        game.clock.setCurrentAnimation('' + frame);
       }
     }
   }
