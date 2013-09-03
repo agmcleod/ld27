@@ -127,6 +127,8 @@
       me.input.unbindKey(me.input.KEY.RIGHT);
       me.input.unbindKey(me.input.KEY.TAB);
       me.input.unbindKey(me.input.KEY.ENTER);
+      me.input.unbindMouse(me.input.mouse.LEFT);
+      me.input.unbindTouch();
     },
 
     removeCoin: function(coin) {
@@ -145,6 +147,8 @@
       me.input.bindKey(me.input.KEY.RIGHT, 'right');
       me.input.bindKey(me.input.KEY.TAB, 'flash', true);
       me.input.bindKey(me.input.KEY.ENTER, 'flash', true);
+      me.input.bindMouse(me.input.mouse.LEFT, me.input.KEY.ENTER);
+      me.input.bindTouch(me.input.KEY.ENTER);
     },
 
     setupCoins: function() {

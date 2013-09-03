@@ -19,6 +19,7 @@ game.DarknessController = Object.extend({
         this.flashedTime = me.timer.getTime();
         game.intro = false;
       }
+      if(this.flashed) game.player.setTarget();
     }
     
     if(this.flashed) {

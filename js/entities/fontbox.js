@@ -12,7 +12,12 @@ game.Fontbox = me.Rect.extend({
   draw: function(context) {
     var amount = game.playScreen.numberOfCoins();
     if(game.intro) {
-      this.font.draw(context, 'Give the tab or enter key a try.', this.pos.x, this.pos.y);
+      if(me.sys.isMobile) {
+        this.font.draw(context, 'Try tapping the screen.', this.pos.x, this.pos.y);
+      }
+      else {
+        this.font.draw(context, 'Give the tab or enter key a try.', this.pos.x, this.pos.y);
+      }
     }
     else if(game.playScreen.gameOver) {
       this.font.draw(context, 'You won in '+ game.playScreen.getRuntime() +' seconds. Press enter to play again.', this.pos.x, this.pos.y);
