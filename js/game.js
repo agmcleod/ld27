@@ -4,10 +4,11 @@ var game = {
       alert("Your browser does not support HTML5 canvas.");
       return;
     }
-  
+
     if (document.location.hash === "#debug") {
       window.onReady(function () {
       me.plugin.register.defer(debugPanel, "debug");
+      me.debug.renderCollisionGrid = true;
       });
     }
 
