@@ -36,8 +36,8 @@ game.Coin = me.CollectableEntity.extend({
     this.collidable = true;
   },
 
-  update: function() {
-    this.parent();
+  update: function(delta) {
+    this.parent(delta);
     var res = this.collide();
     if(res && res.obj.type === 'trap') {
       this.setTrajectory();

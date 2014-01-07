@@ -1,7 +1,7 @@
 (function() {
   var maxCoins = 20;
   var coinCount;
-  
+
   var coins = Array(coinCount);
   var noSpawn = {
     5: [29,30,31],
@@ -87,7 +87,7 @@
       this.startTime = me.timer.getTime();
       this.setupBinds();
       this.darknessController = new game.DarknessController();
-      game.player = me.game.world.getEntityByProp('name', 'player')[0];
+      game.player = me.game.world.getChildByProp('name', 'player')[0];
       me.game.world.addChild(this.darknessController);
 
       game.clock = new game.Clock();
@@ -115,7 +115,7 @@
       this.initializeGame();
       game.intro = true;
     },
-    
+
     onDestroyEvent: function() {
       me.input.unbindKey(me.input.KEY.W);
       me.input.unbindKey(me.input.KEY.A);
