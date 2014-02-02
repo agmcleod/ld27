@@ -11,11 +11,15 @@ game.Player = me.ObjectEntity.extend({
     this.renderable.addAnimation('leftStill', [3], 1);
     this.renderable.setCurrentAnimation('rightStill');
     this.setVelocity(10, 10);
-    this.updateColRect(20, 21, 5, 59);
     this.direction = 'right';
     this.target = new me.Vector2d(0,0);
     me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
     this.type = 'player';
+
+    var shape = this.getShape();
+    shape.pos.x = 20;
+    shape.pos.y = 5;
+    shape.resize(21, 59);
   },
 
   dontGoOutOfMap: function() {
@@ -142,7 +146,7 @@ game.Player = me.ObjectEntity.extend({
     else {
       stopped = this.keyboardInput();
     }
-    
+
 
     this.updateMovement();
     if(!this.renderable.isCurrentAnimation(this.direction) || stopped) {
@@ -156,7 +160,7 @@ game.Player = me.ObjectEntity.extend({
     me.game.world.collide(this);
     this.dontGoOutOfMap();
     this.parent();
-    
+
     return true;
   }
 });

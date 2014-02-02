@@ -7,8 +7,7 @@ var game = {
 
     if (document.location.hash === "#debug") {
       window.onReady(function () {
-      me.plugin.register.defer(debugPanel, "debug");
-      me.debug.renderCollisionGrid = true;
+        me.plugin.register.defer(this, debugPanel, "debug", me.input.KEY.S);
       });
     }
 
