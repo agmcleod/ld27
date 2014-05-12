@@ -5,6 +5,7 @@ game.Darkness = me.Renderable.extend({
       spritewidth: 960,
       spriteheight: 640
     };
+    this.player = me.game.world.getEntityByName('player')[0];
     this.image = me.loader.getImage(settings.image);
     this.parent(new me.Vector2d(x, y), settings.spritewidth, settings.spriteheight);
     this.z = 200;

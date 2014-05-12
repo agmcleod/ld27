@@ -19,10 +19,26 @@
     return typeof value !== 'undefined' && value !== null;
   }
 
+  var GameUpdater = Object.extend({
+    init : function(screen) {
+      this.screen = screen;
+      this.isPersistent = true;
+    },
+
+    update : function(delta) {
+      if(this.screen.gameOver && me.input.isKeyPressed('flash')) {
+        this.screen.initializeGame();
+      }
+      return true;
+    }
+  });
+
   game.PlayScreen = me.ScreenObject.extend({
     font: new me.Font('Arial', 32, '#0c0', 'left'),
     init: function() {
       this.parent(true, true);
+      this.gameUpdater = new GameUpdater(this);
+      me.game.world.addChild(this.gameUpdater);
     },
 
     dropCoins: function() {
@@ -182,13 +198,6 @@
         this.traps[c] ? this.traps[c].push(r) : this.traps[c] = [r];
         me.game.world.addChild(new game.Trap(c * 32, r * 32));
       }
-    },
-
-    update: function() {
-      if(this.gameOver && me.input.isKeyPressed('flash')) {
-        this.initializeGame();
-      }
-      return true;
     }
   });
 
